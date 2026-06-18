@@ -5,10 +5,8 @@ import './styles.css';
 type RewardLevel = { level: number; minLoss: number; rate: number };
 type UserProgress = { casinoBets: number; casinoLosses: number; nextRewardDate: string };
 
-// Change this single variable to switch the landing between before and after opt-in states.
 const initialIsOptedIn = false;
 
-// Mock data only. Replace these values with real account data when backend integration is added.
 const userProgress: UserProgress = {
   casinoBets: 7,
   casinoLosses: 46,
@@ -44,33 +42,74 @@ function App() {
 
   return (
     <main className="page-shell">
+      <nav className="top-bar" aria-label="Landing navigation">
+        <span className="brand-mark">MaraBonus</span>
+        <div>
+          <a href="#highlights">Highlights</a>
+          <a href="#how-it-works">Mechanics</a>
+          <a href="#levels-title">Levels</a>
+        </div>
+        <button className="nav-button" type="button" onClick={() => setIsOptedIn(true)}>
+          {isOptedIn ? 'Active' : 'Opt in'}
+        </button>
+      </nav>
+
       <section className="hero-card" aria-labelledby="hero-title">
         <div className="hero-content">
           <span className="eyebrow">Weekly Casino Cash Back</span>
           <h1 id="hero-title">
-            {isOptedIn ? 'Track your Cash Back progress for this week.' : 'Cash Back is waiting. Don’t miss your weekly reward.'}
+            {isOptedIn ? 'Cash Back progress. In cinematic detail.' : 'Cash Back. Made to come back every Monday.'}
           </h1>
           <p>
             {isOptedIn
-              ? 'Place Casino bets, follow your level, and see the reward you may receive every Monday.'
-              : 'You could get part of your Casino losses back every Monday — but you need to activate Cash Back before you play.'}
+              ? 'Follow your weekly Casino bets, level, and possible reward in one clean landing experience.'
+              : 'Activate before you play, then your qualifying Casino losses can turn into a weekly Cash Back reward.'}
           </p>
           <div className="hero-actions">
             <button className="primary-button" type="button" onClick={() => setIsOptedIn(true)}>
               {isOptedIn ? 'Cash Back Activated' : 'Activate Cash Back'}
             </button>
-            <a className="secondary-button" href="#how-it-works">How it works</a>
+            <a className="secondary-button" href="#highlights">Watch the flow</a>
           </div>
         </div>
         <div className="hero-visual" aria-hidden="true">
-          <div className="coin coin-one">$</div>
-          <div className="coin coin-two">%</div>
-          <div className="glass-card">
-            <span>Potential return</span>
-            <strong>{formatCurrency(potentialReward || 12)}</strong>
-            <small>credited Monday</small>
+          <div className="cashback-device">
+            <div className="device-camera" />
+            <div className="device-screen">
+              <span>Potential return</span>
+              <strong>{formatCurrency(potentialReward || 12)}</strong>
+              <small>credited Monday</small>
+            </div>
           </div>
         </div>
+      </section>
+
+      <section id="highlights" className="feature-strip" aria-labelledby="highlights-title">
+        <div className="section-title-row">
+          <h2 id="highlights-title">Get the highlights.</h2>
+          <a href="#how-it-works">Jump to mechanics</a>
+        </div>
+        <div className="highlight-scroll">
+          <article className="highlight-card orange-card">
+            <span>Before play</span>
+            <h3>Opt in once. Let the week count.</h3>
+          </article>
+          <article className="highlight-card device-stack-card">
+            <span>Live progress</span>
+            <h3>Track bets, losses, level, and reward preview.</h3>
+            <div className="mini-stack" aria-hidden="true"><i /><i /><i /></div>
+          </article>
+          <article className="highlight-card blue-card">
+            <span>Monday payout</span>
+            <h3>Rewards are calculated weekly and credited on schedule.</h3>
+          </article>
+        </div>
+      </section>
+
+      <section className="intro-copy" aria-labelledby="intro-title">
+        <span className="pill">Designed for clarity</span>
+        <h2 id="intro-title">A premium Cash Back landing that keeps every rule easy to see.</h2>
+        <p>Dark space, warm accents, focused cards, and large product-style moments make the program feel simpler without hiding the requirements.</p>
       </section>
 
       <section className="status-grid" aria-label="Cash Back status">
